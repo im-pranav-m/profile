@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 | Cosmic Not Found</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(28, 29, 32, 0.7); /* fallback overlay */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 6rem;
+      margin-bottom: 10px;
+      animation: glitch 1.5s infinite;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #bbbbbb;
+    }
+
+    .back {
+      margin-top: 40px;
+      font-size: 1rem;
+      color: #5b95ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 0 red, -2px 0 cyan;
+      }
+      20% {
+        text-shadow: -2px 0 red, 2px 0 cyan;
+      }
+      40% {
+        text-shadow: 2px 2px red, -2px -2px cyan;
+      }
+      60% {
+        text-shadow: -2px 2px red, 2px -2px cyan;
+      }
+      80% {
+        text-shadow: 2px -2px red, -2px 2px cyan;
+      }
+      100% {
+        text-shadow: 0 0 red, 0 0 cyan;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Galaxy Video Background -->
+  <video autoplay muted loop playsinline class="background-video">
+    <source src="assets/galaxy.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 404 Content -->
+  <div class="container">
+    <h1>404</h1>
+    <p>Oops. Looks like you took a wrong turn in the cosmos.</p>
+    <div class="back" onclick="history.back()">← Go back</div>
+  </div>
+
+</body>
+</html>

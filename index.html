@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cosmic</title>
+  <link rel="stylesheet" href="style.css">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive&family=Homemade+Apple&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css">
+</head>
+<body>
+
+
+
+
+<video autoplay muted loop playsinline class="background-video">
+  <source src="assets/bg.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+
+
+  <div class="page-content">
+    <nav class="navbar">
+      <a href="index.html" class="logo-link">
+        <div class="logo">Cosmic<span class="dot">.</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="#">Projects</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+      <a href="/404.html" class="hire-button">Run main()</a>
+    </nav>
+
+ <section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="intro">Hello, I'm</p>
+
+
+
+      
+<div class="name-wrapper">
+  <h1 class="name">Cosmic<span class="dot">.</span></h1>
+  <svg class="underline-svg" viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M5 20 
+         C25 23, 35 17, 50 20 
+         S75 23, 90 20 
+         S110 17, 130 20 
+         S160 23, 195 20"
+      stroke="white"
+      stroke-width="5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</div>
+<script>
+  function generateRandomWigglePath({
+    startX = 5,
+    endX = 195,
+    segments = 6,
+    baseY = 20,
+    amplitude = 5
+  } = {}) {
+    const segmentLength = (endX - startX) / segments;
+    let d = `M${startX} ${baseY} `;
+
+    let x = startX;
+
+    for (let i = 0; i < segments; i++) {
+      const cp1y = baseY + (Math.random() * 2 - 1) * amplitude;
+      const cp2y = baseY + (Math.random() * 2 - 1) * amplitude;
+      const nextX = x + segmentLength;
+      d += `C${x + segmentLength / 3} ${cp1y.toFixed(1)}, ${x + 2 * segmentLength / 3} ${cp2y.toFixed(1)}, ${nextX} ${baseY} `;
+      x = nextX;
+    }
+
+    return d.trim();
+  }
+
+  function updatePath() {
+    const path = document.querySelector(".underline-svg path");
+    const newD = generateRandomWigglePath();
+    path.setAttribute("d", newD);
+  }
+
+  // On page load
+  updatePath();
+
+  // Optional: repeat on every animation cycle
+  const pathElement = document.querySelector(".underline-svg path");
+  pathElement.addEventListener("animationiteration", updatePath);
+</script>
+
+
+      <p class="tagline">
+        I'm a <span class="dynamic-text"></span>
+      </p>
+
+
+
+      <p class="desc">I'm <span id="age"></span> y/o interested in Tech</p>
+      <script>
+        // Replace with your birthdate (YYYY, MM - 1, DD)
+        const birthDate = new Date(2008, 1, 21); 
+        const today = new Date();
+      
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const hasHadBirthday =
+          today.getMonth() > birthDate.getMonth() ||
+          (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+      
+        if (!hasHadBirthday) {
+          age--;
+        }
+      
+        document.getElementById("age").textContent = age;
+      </script>
+
+<!-- Social Buttons -->
+      <div class="social-links">
+        <a href="https://github.com/im-pranav-m" target="_blank" class="social-btn"><i class="fi fi-brands-github"></i></a>
+        <a href="https://www.instagram.com/im_pranav.m/" target="_blank" class="social-btn"><i class="fi fi-brands-instagram"></i></a>
+        <a href="https://discord.com/users/911622751087894598" target="_blank" class="social-btn"><i class="fi fi-brands-discord"></i></a>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="social-btn"><i class="fi fi-brands-youtube"></i></a>
+        <a href="https://open.spotify.com/user/31f5uvnftswihheu4hrez23se5be" target="_blank" class="social-btn"><i class="fi fi-brands-spotify"></i></a>
+      </div>
+
+
+    </div>
+
+<div class="hero-image">
+  <svg viewBox="0 0 270 270" class="pfp-border" id="animatedBorder">
+    <!-- JS will populate arcs -->
+  </svg>
+  <img src="https://cdn.discordapp.com/avatars/911622751087894598/43e8b028aee73270234c7a678298834e.png?size=1024" alt="Profile Picture">
+</div>
+
+<script>
+  const svg = document.getElementById('animatedBorder');
+  const cx = 135, cy = 135, r = 130;
+  const totalArcs = 30;
+
+  for (let i = 0; i < totalArcs; i++) {
+    const startAngle = Math.random() * 360;
+    const arcLength = 20 + Math.random() * 20;
+
+    const x1 = cx + r * Math.cos((Math.PI / 180) * startAngle);
+    const y1 = cy + r * Math.sin((Math.PI / 180) * startAngle);
+
+    const x2 = cx + r * Math.cos((Math.PI / 180) * (startAngle + arcLength));
+    const y2 = cy + r * Math.sin((Math.PI / 180) * (startAngle + arcLength));
+
+    const largeArcFlag = arcLength > 180 ? 1 : 0;
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const d = `M ${x1} ${y1} A ${r} ${r} 0 ${largeArcFlag} 1 ${x2} ${y2}`;
+    path.setAttribute("d", d);
+    path.setAttribute("class", "arc");
+
+    const totalLength = path.getTotalLength();
+    path.style.strokeDasharray = `0 ${totalLength}`;
+    path.style.strokeDashoffset = `${totalLength / 2}`;
+
+    // Animate stroke growing from center
+    const anim = path.animate([
+      { strokeDasharray: `0 ${totalLength}`, strokeDashoffset: `${totalLength/2}` },
+      { strokeDasharray: `${totalLength} 0`, strokeDashoffset: `0` },
+      { strokeDasharray: `0 ${totalLength}`, strokeDashoffset: `${totalLength/2}` }
+    ], {
+      duration: 3000 + Math.random() * 4000,
+      iterations: Infinity,
+      direction: "alternate",
+      delay: Math.random() * 1000,
+      easing: "ease-in-out"
+    });
+
+    svg.appendChild(path);
+  }
+</script>
+
+  </div>
+</section>
+
+<section class="stats-section" id="stats">
+  <div class="stat">
+    <h2><span class="count" data-target="8">0</span>+</h2>
+    <p>Projects Completed</p>
+  </div>
+  <div class="stat">
+    <h2><span class="count" data-target="12">0</span>+</h2>
+    <p>Technologies Explored</p>
+  </div>
+  <div class="stat">
+    <h2><span class="count" data-target="20">0</span>k+</h2>
+    <p>Code Lines Written</p>
+  </div>
+  <div class="stat">
+    <h2><span class="count" data-target="6">0</span>+</h2>
+    <p>Coding Languages</p>
+  </div>
+<script>
+  const counters = document.querySelectorAll('.count');
+  let started = false;
+
+  function animateCounters() {
+    if (started) return;
+    started = true;
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      let current = 0;
+      const increment = Math.ceil(target / 100); // Speed of counting
+
+      const updateCount = () => {
+        current += increment;
+
+        if (current < target) {
+          counter.innerText = formatNumber(current);
+          setTimeout(updateCount, 100);
+        } else {
+          counter.innerText = formatNumber(target);
+        }
+      };
+
+      updateCount();
+    });
+  }
+
+  // Format function: converts 1000 → 1k, 1500 → 1.5k, etc.
+  function formatNumber(num) {
+    return num >= 1000 ? (num / 1000).toFixed(num % 1000 === 0 ? 0 : 1) + 'k' : num;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) animateCounters();
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(document.querySelector('#stats'));
+</script>
+</section>
+
+<section class="tech-stack">
+  <div class="stack-item"><span class="html-green">HTML</span><span class="white">5</span></div>
+  <div class="stack-item"><span class="css-blue">CSS</span></div>
+  <div class="stack-item"><span class="js-yellow">JavaScript</span></div>
+  <div class="stack-item"><span class="python-blue">Pyt</span><span class="python-yellow">hon</span></div>
+  <div class="stack-item"><span class="cplusplus-purple">C++</span></div>
+  <div class="stack-item"><span class="c-purple">C</span></div>
+  <div class="stack-item"><span class="lua-indigo">Lua</span></div>
+</section>
+
+
+
+<section class="about-section">
+  <div class="about-container">
+    <h2>About me</h2>
+    <p>
+      I started my journey during the pandemic, got intrested in electronics, then got into embeded programming, and then I got into python, web development and game development. I love to learn new things and explore new technologies.
+       
+    </p>
+  </div>
+
+  
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+
+
+
+
+</body>
+</html>
