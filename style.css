@@ -9,6 +9,7 @@ html::-webkit-scrollbar {
 
 body {
   -ms-overflow-style: none;
+  user-select: none;
   
 }
 .logo-link {
@@ -185,6 +186,7 @@ body {
   font-weight: bold;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor:progress;
 }
 
 .hire-button:hover {
@@ -511,21 +513,57 @@ body {
   pointer-events: none;
 }
 
+/* Icon styles */
 .icon-item i {
   font-size: 30px;
   color: #cccccc;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
+/* Span styles */
 .icon-item span {
   font-family: "JetBrains Mono", monospace;
   font-size: 1rem;
   color: #cccccc;
-  line-height: 0.1;          /* reduce line height to match icon size */
+  line-height: 1;
   display: flex;
   align-items: center;
-  padding-bottom: 5px; 
-  font-weight: 700;    /* center vertically if text wraps */
+  padding-bottom: 5px;
+  font-weight: 700;
+  position: relative;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
+
+/* Underline animation */
+.icon-item span::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: 2px;
+  background-color: #5b95ff;
+  transition: transform 0.4s ease;
+}
+
+/* Shared hover styles via .icon-item */
+.icon-item:hover i {
+  color: #ffffff;
+  text-shadow: 0 0 6px #5b95ff, 0 0 12px #e8f0ff;
+}
+
+.icon-item:hover span {
+  color: #ffffff;
+  text-shadow: 0 0 6px #ecf2ff;
+}
+
+.icon-item:hover span::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+
 
 .dot-separator {
   position: relative;
@@ -602,22 +640,36 @@ body {
   }
 }
 
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: -1;
+  touch-action: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
+
+.about-section {
+  position: relative;
+  overflow: hidden;
+  cursor: none;
+}
 
 #dots-bg {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0; /* Behind content */
+  z-index: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* Allow clicks to pass through */
+  pointer-events: none;
 }
 
-.about-section {
-  position: relative; /* So canvas positions relative to this */
-  overflow: hidden;
-}
 
 
 

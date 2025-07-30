@@ -2,18 +2,28 @@
 const canvas = document.getElementById("dots-bg");
 const ctx = canvas.getContext("2d");
 
-const dotDensity = 0.0005;
+const dotDensity = 0.001;
 const minRadius = 1;
 const maxRadius = 3;
 const connectionDistance = 100;
 
 const dotColors = [
-  "rgba(255, 255, 255, 0.2)",   // White
-  "rgba(91, 149, 255, 0.15)"     // #5b95ff
+  "rgba(255, 255, 255, 0.2)",   // soft white
+  "rgba(91, 149, 255, 0.15)"    // soft blue
 ];
 
 let dots = [];
 let mouse = { x: -1000, y: -1000 };
+
+// Detect if device is touch-based
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// Wandering motion variables
+let wanderTarget = { x: canvas.width / 2, y: canvas.height / 2 };
+let wanderActive = isTouchDevice;
+let wanderTimer = 0;
+let nextTarget = generateWanderTarget();
+let pause = false;
 
 function generateDots() {
   dots = [];
@@ -30,37 +40,104 @@ function generateDots() {
   }
 }
 
+function brightenColor(rgba, brightnessMultiplier = 2.5) {
+  const match = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+),?\s*(\d?.?\d*)?\)/);
+  if (!match) return rgba;
+
+  let [_, r, g, b, a] = match;
+  r = Math.min(255, parseInt(r));
+  g = Math.min(255, parseInt(g));
+  b = Math.min(255, parseInt(b));
+  a = a === undefined || a === "" ? 1 : Math.min(1, parseFloat(a) * brightnessMultiplier);
+
+  return `rgba(${r}, ${g}, ${b}, ${a.toFixed(3)})`;
+}
+
 function drawScene() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let dot of dots) {
-    ctx.beginPath();
-    ctx.arc(dot.x, dot.y, dot.radius, 0, 2 * Math.PI);
-    ctx.fillStyle = dot.color;
-    ctx.fill();
+  // Wander motion logic
+  if (wanderActive) {
+    if (!pause) {
+      let dx = nextTarget.x - wanderTarget.x;
+      let dy = nextTarget.y - wanderTarget.y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
 
+      if (dist < 2) {
+        pause = true;
+        setTimeout(() => {
+          nextTarget = generateWanderTarget();
+          pause = false;
+        }, 800 + Math.random() * 1200); // Pause 0.8–2s
+      } else {
+        wanderTarget.x += dx * 0.02;
+        wanderTarget.y += dy * 0.02;
+      }
+    }
+
+    mouse.x = wanderTarget.x;
+    mouse.y = wanderTarget.y;
+  }
+
+  for (let dot of dots) {
     const dx = mouse.x - dot.x;
     const dy = mouse.y - dot.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
 
     if (dist < connectionDistance) {
+      const glowColor = brightenColor(dot.color, 3.5);
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, dot.radius + 0.5, 0, 2 * Math.PI);
+      ctx.fillStyle = glowColor;
+      ctx.shadowColor = glowColor;
+      ctx.shadowBlur = 10;
+      ctx.fill();
+
       ctx.beginPath();
       ctx.moveTo(dot.x, dot.y);
       ctx.lineTo(mouse.x, mouse.y);
-      ctx.strokeStyle = dot.color;
+      ctx.strokeStyle = glowColor;
       ctx.lineWidth = 1;
+      ctx.shadowBlur = 0;
       ctx.stroke();
+    } else {
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, dot.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = dot.color;
+      ctx.shadowBlur = 0;
+      ctx.fill();
     }
   }
 
   requestAnimationFrame(drawScene);
 }
 
-function resizeCanvas() {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-  generateDots();
+function generateWanderTarget() {
+  return {
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height
+  };
 }
+
+function resizeCanvas() {
+  const section = document.querySelector(".about-section");
+  const rect = section.getBoundingClientRect();
+
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.style.width = rect.width + "px";
+  canvas.style.height = rect.height + "px";
+
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+
+  generateDots(); // or your equivalent dot setup
+}
+
+
 
 window.addEventListener("resize", resizeCanvas);
 window.addEventListener("load", () => {
@@ -68,16 +145,18 @@ window.addEventListener("load", () => {
   drawScene();
 });
 
-window.addEventListener("mousemove", (e) => {
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = e.clientX - rect.left;
-  mouse.y = e.clientY - rect.top;
-});
+if (!isTouchDevice) {
+  window.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
 
-window.addEventListener("mouseleave", () => {
-  mouse.x = -1000;
-  mouse.y = -1000;
-});
+  window.addEventListener("mouseleave", () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+}
 
 
 // === Stats Counter Animation ===
