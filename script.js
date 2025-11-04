@@ -159,6 +159,8 @@ if (!isTouchDevice) {
 }
 
 
+
+
 // === Stats Counter Animation ===
 const counters = document.querySelectorAll('.count');
 let started = false;
