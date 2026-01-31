@@ -639,6 +639,49 @@ document.addEventListener("keydown", (e) => {
   inputSpan.textContent = currentInput;
 });
 
+function handleXdgOpen(filename) {
+  const dir = getCwdObject();
+
+  const output = document.createElement("div");
+  output.className = "terminal-output";
+
+  if (!(filename in dir)) {
+    output.textContent = `xdg-open: '${filename}' not found`;
+    terminalBody.appendChild(output);
+    return;
+  }
+
+  // IMAGE
+  if (filename.endsWith(".jpg")) {
+    output.textContent = `Opening ${filename} with Image Viewer...`;
+    terminalBody.appendChild(output);
+
+    const imgWrapper = document.createElement("div");
+    imgWrapper.style.marginTop = "8px";
+
+    const img = document.createElement("img");
+    img.src = fileUrls[filename];
+    img.style.maxWidth = "100%";
+    img.style.borderRadius = "6px";
+    img.style.boxShadow = "0 0 20px rgba(0,0,0,0.6)";
+
+    imgWrapper.appendChild(img);
+    terminalBody.appendChild(imgWrapper);
+    terminalBody.scrollTop = terminalBody.scrollHeight;
+    return;
+  }
+
+  output.textContent = `xdg-open: no application registered for '${filename}'`;
+  terminalBody.appendChild(output);
+}
+
+
+
+const fileUrls = {
+  "saucecodes.jpg": "https://i.imgflip.com/4j5564.png",
+  "miaBioNotes.jpg": "https://media.tenor.com/y4sm38ArtSwAAAAe/sus-cat.png"
+};
+
 
 
 function handleCommand(cmd) {
@@ -662,8 +705,10 @@ function handleCommand(cmd) {
       whoami      current user
       date        current date & time
       echo        print text
-      git         fake git handler
+      git         use "git help"
       cat         cat <filename> : to show files
+      cd          get into a directory
+      xdg-open    open images
     </pre>
     `;
 
@@ -687,6 +732,20 @@ function handleCommand(cmd) {
       }
       break;
 
+    case "xdg-open": {
+      const file = args[1];
+      const dir = getCwdObject();
+
+      if (!file) {
+        output.textContent = "usage: xdg-open <file>";
+      } else if (file in dir) {
+        handleXdgOpen(file);
+      } else {
+        output.textContent = `xdg-open: '${file}' not found`;
+      }
+      break;
+    }
+
     case "cd":
       const target = args[1];
       const dir1 = getCwdObject();
@@ -702,15 +761,10 @@ function handleCommand(cmd) {
       }
       break;
 
-
-
     case "clear":
       terminalBody.innerHTML = "";
       terminalState = "INPUT";
       showPrompt();
-      return;
-
-
       return;
 
     case "ls":
@@ -755,6 +809,7 @@ function handleCommand(cmd) {
   showPrompt();
 
 }
+
 function handleGitCommand(args, output) {
   const sub = args[0];
 
@@ -764,6 +819,25 @@ function handleGitCommand(args, output) {
   }
 
   switch (sub) {
+    case "help":
+      output.innerHTML = `
+<pre>
+Git commands available:
+
+  status          Show the working tree status
+  checkout [arg]  Switch branches or restore files
+                  (e.g., git checkout a3f9c22)
+  log             Show commit logs
+  help            Show this help message
+
+Usage examples:
+  git status
+  git checkout [hash]
+  git log
+</pre>
+      `;
+      break;
+
     case "status":
       output.innerHTML = `
 On branch main
@@ -773,20 +847,38 @@ nothing to commit, working tree clean
 
     case "checkout":
       if (!args[1]) {
-        output.textContent = "git checkout: missing branch name";
+        output.textContent = "git checkout: missing branch or commit hash";
       } else {
-        output.textContent =
-          `error: pathspec '${args[1]}' did not match any file(s) known to git`;
+        const commit = args[1];
+
+        if (commit === "a3f9c22") {
+          const newFile = "home.html"; // your new HTML file
+          output.textContent = `HEAD is now at ${commit} - switched to '${newFile}'`;
+
+          // Navigate to the new HTML file in the same tab
+          window.location.href = `${newFile}`;
+        } else {
+          output.textContent =
+            `error: pathspec '${commit}' did not match any file(s) known to git`;
+        }
       }
       break;
 
     case "log":
       output.innerHTML = `
+<pre>
+commit a3f9c22 (HEAD -> main)
+Author: cosmic
+Date:   Thu Jan 28 21:02:00 2069
+
+    Portfolio Version 2
+
 commit a3f9c21 (HEAD -> main)
 Author: cosmic
 Date:   Thu Jan 18 21:00:00 2026
 
     Initial portfolio commit
+</pre>
 `;
       break;
 
@@ -794,6 +886,7 @@ Date:   Thu Jan 18 21:00:00 2026
       output.textContent = `git: '${sub}' is not a git command.`;
   }
 }
+
 
 const fsTree = {
   home: {
@@ -805,7 +898,7 @@ const fsTree = {
           "cosmic.html": "Cosmic was not here"
         },
         secrets: {
-          "miaBioNotes.mp4" : "",
+          "miaBioNotes.jpg" : "",
           "saucecodes.jpg" : ""
         }
       }
