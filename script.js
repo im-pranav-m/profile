@@ -353,6 +353,7 @@ const terminalBody = document.getElementById("terminalBody");
 const openBtn = document.getElementById("openTerminal");
 const closeBtn = document.getElementById("closeTerminal");
 const header = document.getElementById("terminalHeader");
+let terminalState = "BOOT"; // BOOT | INPUT | BUSY
 
 /* =====================
    OPEN / CLOSE
@@ -418,63 +419,63 @@ const lines = [
   { text: "> Booting CosmicOS v2.0...", speed: 18, pause: 300 },
   { text: "> Initializing neural modules...", speed: 16, pause: 300 },
   { text: "> Syncing portfolio data...", speed: 16, pause: 300 },
-  { text: "[success] Loading HTML templates...", speed: 0, pause: 1 },
-  { text: "[success] Compiling CSS...", speed: 0, pause: 1 },
-  { text: "[success] Minifying JS...", speed: 0, pause: 1 },
-  { text: "[success] Fetching API data...", speed: 0, pause: 1 },
-  { text: "[success] Connecting to WebSocket...", speed: 0, pause: 1 },
-  { text: "[success] Initializing React components...", speed: 0, pause: 1 },
-  { text: "[success] Hydrating DOM...", speed: 0, pause: 1 },
-  { text: "[success] Loading fonts...", speed: 0, pause: 1 },
-  { text: "[success] Rendering hero section...", speed: 0, pause: 1 },
-  { text: "[success] Applying animations...", speed: 0, pause: 1 },
-  { text: "[success] Fetching user session...", speed: 0, pause: 1 },
-  { text: "[success] Authenticating OAuth tokens...", speed: 0, pause: 1 },
-  { text: "[success] Caching static assets...", speed: 0, pause: 1 },
-  { text: "[success] Loading images...", speed: 0, pause: 1 },
-  { text: "[success] Initializing sliders...", speed: 0, pause: 1 },
-  { text: "[success] Checking responsive layout...", speed: 0, pause: 1 },
-  { text: "[success] Setting theme variables...", speed: 0, pause: 1 },
-  { text: "[success] Applying dark mode...", speed: 0, pause: 1 },
-  { text: "[success] Connecting analytics...", speed: 0, pause: 1 },
-  { text: "[success] Loading footer...", speed: 0, pause: 1 },
-  { text: "[success] Starting service worker...", speed: 0, pause: 1 },
-  { text: "[success] Preloading scripts...", speed: 0, pause: 1 },
-  { text: "[success] Mounting modals...", speed: 0, pause: 1 },
-  { text: "[success] Checking browser support...", speed: 0, pause: 1 },
-  { text: "[success] Initializing notifications...", speed: 0, pause: 1 },
-  { text: "[success] Fetching user preferences...", speed: 0, pause: 1 },
-  { text: "[success] Connecting CDN...", speed: 0, pause: 1 },
-  { text: "[success] Building navigation bar...", speed: 0, pause: 1 },
-  { text: "[success] Rendering blog posts...", speed: 0, pause: 1 },
-  { text: "[success] Launching website v2.0...", speed: 0, pause: 1 },
-  { text: "[success] Initializing API endpoints...", speed: 0, pause: 1 },
-  { text: "[success] Loading theme assets...", speed: 0, pause: 1 },
-  { text: "[success] Rendering modals...", speed: 0, pause: 1 },
-  { text: "[success] Starting background sync...", speed: 0, pause: 1 },
-  { text: "[success] Applying cache rules...", speed: 0, pause: 1 },
-  { text: "[success] Updating service worker...", speed: 0, pause: 1 },
-  { text: "[success] Optimizing images...", speed: 0, pause: 1 },
-  { text: "[success] Loading web fonts...", speed: 0, pause: 1 },
-  { text: "[success] Initializing analytics dashboard...", speed: 0, pause: 1 },
-  { text: "[success] Mounting sidebar components...", speed: 0, pause: 1 },
-  { text: "[success] Loading SVG icons...", speed: 0, pause: 1 },
-  { text: "[success] Preloading hero images...", speed: 0, pause: 1 },
-  { text: "[success] Checking API health...", speed: 0, pause: 1 },
-  { text: "[success] Applying JS polyfills...", speed: 0, pause: 1 },
-  { text: "[success] Compiling SASS variables...", speed: 0, pause: 1 },
-  { text: "[success] Generating sitemap...", speed: 0, pause: 1 },
-  { text: "[success] Starting dev server...", speed: 0, pause: 1 },
-  { text: "[success] Injecting environment variables...", speed: 0, pause: 1 },
-  { text: "[success] Loading favicon...", speed: 0, pause: 1 },
-  { text: "[success] Mounting header components...", speed: 0, pause: 1 },
-  { text: "[success] Running unit tests...", speed: 0, pause: 1 },
+//  { text: "[success] Loading HTML templates...", speed: 0, pause: 1 },
+//  { text: "[success] Compiling CSS...", speed: 0, pause: 1 },
+//  { text: "[success] Minifying JS...", speed: 0, pause: 1 },
+//  { text: "[success] Fetching API data...", speed: 0, pause: 1 },
+//  { text: "[success] Connecting to WebSocket...", speed: 0, pause: 1 },
+//  { text: "[success] Initializing React components...", speed: 0, pause: 1 },
+//  { text: "[success] Hydrating DOM...", speed: 0, pause: 1 },
+//  { text: "[success] Loading fonts...", speed: 0, pause: 1 },
+//  { text: "[success] Rendering hero section...", speed: 0, pause: 1 },
+//  { text: "[success] Applying animations...", speed: 0, pause: 1 },
+//  { text: "[success] Fetching user session...", speed: 0, pause: 1 },
+//  { text: "[success] Authenticating OAuth tokens...", speed: 0, pause: 1 },
+//  { text: "[success] Caching static assets...", speed: 0, pause: 1 },
+//  { text: "[success] Loading images...", speed: 0, pause: 1 },
+//  { text: "[success] Initializing sliders...", speed: 0, pause: 1 },
+//  { text: "[success] Checking responsive layout...", speed: 0, pause: 1 },
+//  { text: "[success] Setting theme variables...", speed: 0, pause: 1 },
+//  { text: "[success] Applying dark mode...", speed: 0, pause: 1 },
+//  { text: "[success] Connecting analytics...", speed: 0, pause: 1 },
+//  { text: "[success] Loading footer...", speed: 0, pause: 1 },
+//  { text: "[success] Starting service worker...", speed: 0, pause: 1 },
+//  { text: "[success] Preloading scripts...", speed: 0, pause: 1 },
+//  { text: "[success] Mounting modals...", speed: 0, pause: 1 },
+//  { text: "[success] Checking browser support...", speed: 0, pause: 1 },
+//  { text: "[success] Initializing notifications...", speed: 0, pause: 1 },
+//  { text: "[success] Fetching user preferences...", speed: 0, pause: 1 },
+//  { text: "[success] Connecting CDN...", speed: 0, pause: 1 },
+//  { text: "[success] Building navigation bar...", speed: 0, pause: 1 },
+//  { text: "[success] Rendering blog posts...", speed: 0, pause: 1 },
+//  { text: "[success] Launching website v2.0...", speed: 0, pause: 1 },
+//  { text: "[success] Initializing API endpoints...", speed: 0, pause: 1 },
+//  { text: "[success] Loading theme assets...", speed: 0, pause: 1 },
+//  { text: "[success] Rendering modals...", speed: 0, pause: 1 },
+//  { text: "[success] Starting background sync...", speed: 0, pause: 1 },
+//  { text: "[success] Applying cache rules...", speed: 0, pause: 1 },
+//  { text: "[success] Updating service worker...", speed: 0, pause: 1 },
+//  { text: "[success] Optimizing images...", speed: 0, pause: 1 },
+//  { text: "[success] Loading web fonts...", speed: 0, pause: 1 },
+//  { text: "[success] Initializing analytics dashboard...", speed: 0, pause: 1 },
+//  { text: "[success] Mounting sidebar components...", speed: 0, pause: 1 },
+//  { text: "[success] Loading SVG icons...", speed: 0, pause: 1 },
+//  { text: "[success] Preloading hero images...", speed: 0, pause: 1 },
+//  { text: "[success] Checking API health...", speed: 0, pause: 1 },
+//  { text: "[success] Applying JS polyfills...", speed: 0, pause: 1 },
+//  { text: "[success] Compiling SASS variables...", speed: 0, pause: 1 },
+//  { text: "[success] Generating sitemap...", speed: 0, pause: 1 },
+//  { text: "[success] Starting dev server...", speed: 0, pause: 1 },
+//  { text: "[success] Injecting environment variables...", speed: 0, pause: 1 },
+//  { text: "[success] Loading favicon...", speed: 0, pause: 1 },
+//  { text: "[success] Mounting header components...", speed: 0, pause: 1 },
+//  { text: "[success] Running unit tests...", speed: 0, pause: 1 },
   { text: "[failed] Booting", speed: 0, pause: 1 },
   { text: "[failed] GIT Failed to Tag V2.0", speed: 0, pause: 1 },
   { text: "[error] pathspec 'someNonExistentBranch'", speed: 0, pause: 1 },
 
   // Dramatic
-  { text: "> System ready 🚀", speed: 40, pause: 0 },
+  { text: "> type 'help' to view all the command", speed: 40, pause: 0 },
   { text: "", speed: 1, pause: 0 }
 ];
 
@@ -501,7 +502,11 @@ const highlightWords = {
 ===================== */
 
 function typeLine() {
-  if (lineIndex >= lines.length) return;
+  if (lineIndex >= lines.length) {
+    terminalState = "INPUT";
+    showPrompt();
+    return;
+  }
 
   const lineData = lines[lineIndex];
   const text = lineData.text;
@@ -541,3 +546,290 @@ function typeLine() {
 }
 
 
+/* =====================
+   TERMINAL INPUT
+===================== */
+
+let currentInput = "";
+let promptLine = null;
+let inputSpan = null;
+let cursorSpan = null;
+
+/* =====================
+   SHOW PROMPT
+===================== */
+
+function showPrompt() {
+  if (terminalState !== "INPUT") return;
+
+  promptLine = document.createElement("div");
+  promptLine.className = "prompt-line";
+
+  const promptSpan = document.createElement("span");
+  promptSpan.className = "prompt";
+
+  const userSpan = document.createElement("span");
+  userSpan.textContent = "cosmic@";
+
+  const hostSpan = document.createElement("span");
+  hostSpan.className = "prompt-host";
+  hostSpan.textContent = "portfolio";
+
+  const pathSpan = document.createElement("span");
+  pathSpan.textContent = ":~/" + cwd.slice(3).join("/") + " $ ";
+
+  promptSpan.appendChild(userSpan);
+  promptSpan.appendChild(hostSpan);
+  promptSpan.appendChild(pathSpan);
+
+
+  inputSpan = document.createElement("span");
+  inputSpan.className = "input";
+
+  cursorSpan = document.createElement("span");
+  cursorSpan.className = "cursor";
+  cursorSpan.textContent = "▊";
+
+  promptLine.appendChild(promptSpan);
+  promptLine.appendChild(inputSpan);
+  promptLine.appendChild(cursorSpan);
+
+  terminalBody.appendChild(promptLine);
+  terminalBody.scrollTop = terminalBody.scrollHeight;
+
+  currentInput = "";
+}
+
+/* =====================
+   KEYBOARD HANDLER
+===================== */
+
+document.addEventListener("keydown", (e) => {
+  if (terminalState !== "INPUT") return;
+
+  // Prevent page scrolling, etc.
+  e.preventDefault();
+
+  // ENTER → submit command
+  if (e.key === "Enter") {
+    terminalState = "BUSY";
+    cursorSpan.remove();
+
+    const command = currentInput.trim();
+    currentInput = "";
+
+    handleCommand(command);
+
+    return;
+  }
+
+
+  // BACKSPACE
+  if (e.key === "Backspace") {
+    currentInput = currentInput.slice(0, -1);
+    inputSpan.textContent = currentInput;
+    return;
+  }
+
+  // Ignore control keys
+  if (e.key.length !== 1) return;
+
+  // Normal character input
+  currentInput += e.key;
+  inputSpan.textContent = currentInput;
+});
+
+
+
+function handleCommand(cmd) {
+  const output = document.createElement("div");
+  output.className = "terminal-output";
+
+  const args = cmd.split(" ").filter(Boolean);
+  const base = args[0]?.toLowerCase() || "";
+
+  switch (base) {
+
+    case "help":
+    output.innerHTML = `
+    <pre>
+    Available commands:
+      help        show this message
+      about       about this terminal
+      clear       clear the terminal
+      ls          list files
+      pwd         print working directory
+      whoami      current user
+      date        current date & time
+      echo        print text
+      git         fake git handler
+      cat         cat <filename> : to show files
+    </pre>
+    `;
+
+      break;
+
+    case "about":
+      output.textContent =
+        "CosmicOS v2.0 — interactive portfolio terminal (frontend only).";
+      break;
+
+    case "cat":
+      const file = args[1];
+      const dir = getCwdObject();
+
+      if (!file) {
+        output.textContent = "usage: cat <file>";
+      } else if (typeof dir[file] === "string") {
+        output.innerHTML = `<pre>${dir[file]}</pre>`;
+      } else {
+        output.textContent = `cat: ${file}: No such file`;
+      }
+      break;
+
+    case "cd":
+      const target = args[1];
+      const dir1 = getCwdObject();
+
+      if (!target) break;
+
+      if (target === "..") {
+        if (cwd.length > 1) cwd.pop();
+      } else if (dir1[target] && typeof dir1[target] === "object") {
+        cwd.push(target);
+      } else {
+        output.textContent = `cd: ${target}: No such directory`;
+      }
+      break;
+
+
+
+    case "clear":
+      terminalBody.innerHTML = "";
+      terminalState = "INPUT";
+      showPrompt();
+      return;
+
+
+      return;
+
+    case "ls":
+      output.textContent = Object.keys(getCwdObject()).join("  ");
+      break;
+
+
+    case "pwd":
+      output.textContent = "/" + cwd.join("/");
+      break;
+
+
+    case "whoami":
+      output.textContent = "cosmic";
+      break;
+
+    case "date":
+      output.textContent = new Date().toString();
+      break;
+
+    case "echo":
+      output.textContent = args.slice(1).join(" ");
+      break;
+
+    case "git":
+      handleGitCommand(args.slice(1), output);
+      break;
+
+    case "":
+      terminalState = "INPUT";
+      showPrompt();
+      return;
+      return;
+
+    default:
+      output.textContent = `command not found: ${base}`;
+  }
+
+  terminalBody.appendChild(output);
+  terminalBody.scrollTop = terminalBody.scrollHeight;
+  terminalState = "INPUT";
+  showPrompt();
+
+}
+function handleGitCommand(args, output) {
+  const sub = args[0];
+
+  if (!sub) {
+    output.textContent = "git: missing subcommand";
+    return;
+  }
+
+  switch (sub) {
+    case "status":
+      output.innerHTML = `
+On branch main
+nothing to commit, working tree clean
+`;
+      break;
+
+    case "checkout":
+      if (!args[1]) {
+        output.textContent = "git checkout: missing branch name";
+      } else {
+        output.textContent =
+          `error: pathspec '${args[1]}' did not match any file(s) known to git`;
+      }
+      break;
+
+    case "log":
+      output.innerHTML = `
+commit a3f9c21 (HEAD -> main)
+Author: cosmic
+Date:   Thu Jan 18 21:00:00 2026
+
+    Initial portfolio commit
+`;
+      break;
+
+    default:
+      output.textContent = `git: '${sub}' is not a git command.`;
+  }
+}
+
+const fsTree = {
+  home: {
+    cosmic: {
+      portfolio: {
+        "aboutme.txt": "Hi, I'm Pranav aka Cosmic! 👋 \nI Love Designing , Tinkering , Editing , Learning",
+        "love.txt": "Only Keep b/w you n me <3 \nMy crush is RTX5090. \nPleawse spownswer mew sir ._.",
+        projects: {
+          "cosmic.html": "Cosmic was not here"
+        },
+        secrets: {
+          "miaBioNotes.mp4" : "",
+          "saucecodes.jpg" : ""
+        }
+      }
+    }
+  }
+};
+
+let cwd = ["home", "cosmic", "portfolio"];
+
+function getCwdObject() {
+  return cwd.reduce((dir, key) => dir[key], fsTree);
+}
+
+
+
+const files = {
+  "aboutme.txt": `
+Hi, I'm Pranav aka Cosmic! 👋
+I'm a student, developer, and lifelong learner.
+I love coding, making projects, and solving problems.
+`,
+  "love.txt": `
+Only you can read it!
+My Crush is RTX5090
+Pleawse spownser me :)
+`
+};
