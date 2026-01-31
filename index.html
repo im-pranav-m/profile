@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cosmic</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive&family=Homemade+Apple&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <!-- Flaticon Icon Packs -->
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-thin-solid/css/uicons-thin-solid.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-thin-rounded/css/uicons-thin-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css"/>
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"/>
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-straight/css/uicons-regular-straight.css"/>
+  </head>
+
+  <body>
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="assets/bg.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="page-content">
+      <nav class="navbar">
+        <a href="index.html" class="logo-link">
+          <div class="logo">Cosmic<span class="dot">.</span></div>
+        </a>
+        <div class="nav-links">
+          <a href="#">Projects</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+
+        <a class="hire-button" id="openTerminal">Run V2.0</a>
+
+        <div class="terminal" id="terminal">
+          <div class="terminal-header" id="terminalHeader">
+            <span>cosmic@portfolio:~</span>
+            <button id="closeTerminal"></button>
+          </div>
+          <div class="terminal-body" id="terminalBody"></div>
+
+        </div>
+
+      </nav>
+
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-text">
+            <p class="intro">Hello, I'm</p>
+
+            <div class="name-wrapper">
+              <h1 class="name">Cosmic<span class="dot">.</span></h1>
+              <svg
+                class="underline-svg"
+                viewBox="0 0 200 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 20 C25 23, 35 17, 50 20 S75 23, 90 20 S110 17, 130 20 S160 23, 195 20"
+                  stroke="white"
+                  stroke-width="5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <p class="tagline">
+              I'm a <span class="dynamic-text"></span>
+            </p>
+
+            <p class="desc">I'm <span id="age"></span> y/o interested in Tech</p>
+
+            <div class="social-links">
+              <a
+                href="https://github.com/im-pranav-m"
+                target="_blank"
+                class="social-btn"
+                ><i class="fi fi-brands-github"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/im_pranav.m/"
+                target="_blank"
+                class="social-btn"
+                ><i class="fi fi-brands-instagram"></i
+              ></a>
+              <a
+                href="https://discord.com/users/911622751087894598"
+                target="_blank"
+                class="social-btn"
+                ><i class="fi fi-brands-discord"></i
+              ></a>
+              <a
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                target="_blank"
+                class="social-btn"
+                ><i class="fi fi-brands-youtube"></i
+              ></a>
+              <a
+                href="https://open.spotify.com/user/31f5uvnftswihheu4hrez23se5be"
+                target="_blank"
+                class="social-btn"
+                ><i class="fi fi-brands-spotify"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <svg viewBox="0 0 270 270" class="pfp-border" id="animatedBorder"></svg>
+            <img
+              src="assets//image/pfp.png"
+              alt="Profile Picture"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-section" id="stats">
+        <div class="stat">
+          <h2><span class="count" data-target="8">0</span>+</h2>
+          <p>Projects Completed</p>
+        </div>
+        <div class="stat">
+          <h2><span class="count" data-target="12">0</span>+</h2>
+          <p>Technologies Explored</p>
+        </div>
+        <div class="stat">
+          <h2><span class="count" data-target="20">0</span>k+</h2>
+          <p>Code Lines Written</p>
+        </div>
+        <div class="stat">
+          <h2><span class="count" data-target="6">0</span>+</h2>
+          <p>Coding Languages</p>
+        </div>
+      </section>
+
+      <section class="tech-stack">
+        <div class="stack-item"><span class="html-green">HTML</span><span class="white">5</span></div>
+        <div class="stack-item"><span class="css-blue">CSS</span></div>
+        <div class="stack-item"><span class="js-yellow">JavaScript</span></div>
+        <div class="stack-item">
+          <span class="python-blue">Pyt</span><span class="python-yellow">hon</span>
+        </div>
+        <div class="stack-item"><span class="cplusplus-purple">C++</span></div>
+        <div class="stack-item"><span class="c-purple">C</span></div>
+        <div class="stack-item"><span class="lua-indigo">Lua</span></div>
+      </section>
+
+      <section class="about-section">
+        <canvas id="dots-bg"></canvas>
+
+        <div class="icon-stack">
+          <div class="icon-item">
+            <svg class="side-line" viewBox="0 0 4 100" preserveAspectRatio="none">
+              <line
+                x1="2"
+                y1="0"
+                x2="2"
+                y2="100"
+                stroke="#5b95ff"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            </svg>
+            <i class="fi fi-rs-microchip-ai"></i>
+            <span>Electronics</span>
+          </div>
+
+          <div class="dot-separator"></div>
+
+          <div class="icon-item">
+            <svg class="side-line" viewBox="0 0 4 100" preserveAspectRatio="none">
+              <line
+                x1="2"
+                y1="0"
+                x2="2"
+                y2="100"
+                stroke="#5b95ff"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            </svg>
+            <i class="fi fi-rr-code-window"></i>
+            <span>Embedded Programming</span>
+          </div>
+
+          <div class="dot-separator"></div>
+
+          <div class="icon-item">
+            <svg class="side-line" viewBox="0 0 4 100" preserveAspectRatio="none">
+              <line
+                x1="2"
+                y1="0"
+                x2="2"
+                y2="100"
+                stroke="#5b95ff"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            </svg>
+            <i class="fi fi-brands-python"></i>
+            <span>Python</span>
+          </div>
+
+          <div class="dot-separator"></div>
+
+          <div class="icon-item">
+            <svg class="side-line" viewBox="0 0 4 100" preserveAspectRatio="none">
+              <line
+                x1="2"
+                y1="0"
+                x2="2"
+                y2="100"
+                stroke="#5b95ff"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            </svg>
+            <i class="fi fi-rr-browser"></i>
+            <span>Web Dev</span>
+          </div>
+
+          <div class="dot-separator"></div>
+
+          <div class="icon-item">
+            <svg class="side-line" viewBox="0 0 4 100" preserveAspectRatio="none">
+              <line
+                x1="2"
+                y1="0"
+                x2="2"
+                y2="100"
+                stroke="#5b95ff"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+            </svg>
+            <i class="fi fi-rs-magic-wand"></i>
+            <span>Editing & Designing</span>
+          </div>
+        </div>
+
+        <div class="about-container">
+          <h2>About me</h2>
+          <p>
+            During the pandemic, I found myself diving into electronics out of pure curiosity. What began with simple circuits quickly grew into a passion for embedded programming—watching hardware respond to code was fascinating. That journey led me to Python, where I learned to build tools and automate ideas, and eventually into web and game development as I explored more creative ways to build and share things. Along the way, I also discovered a love for visual storytelling. I started using Blender to create 3D animations and scenes, and got into editing and design—learning how to bring ideas to life not just through logic, but through visuals and motion. I’m always exploring, always building, and constantly picking up new skills. For me, learning isn’t a task—it’s something I genuinely enjoy.
+          </p>
+        </div>
+      </section>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
