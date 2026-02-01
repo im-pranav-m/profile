@@ -218,8 +218,8 @@ body {
 /* ========== HERO SECTION ========== */
 .hero {
   padding: 80px 20px;
-  max-width: 1200px;
-  margin: 0 50vb;
+  max-width: 750px;
+  margin: 0 auto;
 }
 
 .hero-content {
@@ -662,8 +662,6 @@ canvas {
 
 #dots-bg {
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: 0;
   width: 100%;
   height: 100%;

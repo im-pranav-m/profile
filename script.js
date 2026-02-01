@@ -298,12 +298,13 @@ pathElement.addEventListener("animationiteration", updatePath);
 const words = [
   "Tech Enthusiast.",
   "Developer.",
-  "Designer.",
+  "Image Designer.",
   "Embedded System Dev",
+  "Game Dev.",
   "3D Artist.",
   "Video Editor.",
   "Blender Creator.",
-  "VibeCoder.",
+  "Learning Coder.",
   "Electronics Tinkerer.",
   "Drone Pilot."
 ];
